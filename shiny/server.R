@@ -1,10 +1,3 @@
-
-# This is the server logic for a Shiny web application.
-# You can find out more about building applications with Shiny here:
-#
-# http://shiny.rstudio.com
-#
-
 library(shiny)
 library(ggplot2)
 
@@ -12,20 +5,6 @@ cfunc <- function(x, n, lambda) sqrt(n) * (mean(x) - 1 / lambda) * lambda
 
 shinyServer(function(input, output) {
 
-#  output$distPlot <- renderPlot({
-#
-#    # generate bins based on input$bins from ui.R
-#    x    <- faithful[, 2]
-#    bins <- seq(min(x), max(x), length.out = input$bins + 1)
-#
-#    # draw the histogram with the specified number of bins
-#    hist(x, breaks = bins, col = 'darkgray', border = 'white')
-#
-#  })
-  
-  #lambda <- input$lambda
-  #nosim  <- input$nosim
-  
   output$lambda <- renderPrint({input$lambda})
   output$nosim <- renderPrint({input$nosim})
   output$noobs <- renderPrint({input$noobs})
@@ -58,7 +37,6 @@ shinyServer(function(input, output) {
     g <- ggplot(dat, aes(x = x, fill = size)) +
       geom_histogram(binwidth=.3, colour = "black", aes(y = ..density..)) 
     g <- g + stat_function(fun = dnorm, size = 2)
-    #g + facet_grid(. ~ size)
     print(g)
     
   })

@@ -1,28 +1,70 @@
 Exponential distribution simulation
 ========================================================
-author: 
-date: 
+author: Igor Kaplanovic
+date: 2015-02-22
 
-First Slide
+Reasons
 ========================================================
 
-For more details on authoring R presentations click the
-**Help** button on the toolbar.
+Exponential distribution simulation is a small educational
+Shiny application.
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
+It is intended as a small tool for showing how exponentaial
+distribution works in courses such as Statistical inference.
 
-Slide With Code
+Methodology of simulation
 ========================================================
 
-```{r}
-summary(cars)
+All data used in simulator are generated according to the parameters selected by the student.
+There are 3 parameters:
+- lambda,
+- number of simulations to perform and
+- number of observations per each simulation.
+
+Matrix of all values is calculated only once and then used for displaying two plots.
+
+```{r echo=FALSE}
+library(ggplot2)
+
+lambda <- 0.2
+nosim <- 10000
+noobs <- 40
 ```
 
-Slide With Plot
+```{r echo=TRUE}
+mat <- matrix(rexp(nosim * noobs, lambda), nosim)
+```
+
+Plot of distribution of generated values with expected mean value
 ========================================================
 
 ```{r, echo=FALSE}
-plot(cars)
+dat <- data.frame(
+  x = c(apply(mat, 1, mean)),
+  size = factor(rep(c(noobs), c(nosim))) 
+)
+
+ggplot(dat, aes(x = x, fill = size)) +
+  geom_density(size = 2, alpha = .2) +
+  geom_vline(xintercept = 1 / lambda, size = 2)
+
 ```
+
+Plot showing that the distribution is approximately normal.
+========================================================
+
+```{r, echo=FALSE}
+cfunc <- function(x, n, lambda) sqrt(n) * (mean(x) - 1 / lambda) * lambda
+
+dat <- data.frame(
+  x = c(apply(mat, 1, cfunc, noobs, lambda)),
+  size = factor(rep(c(noobs), c(nosim)))
+)
+    
+g <- ggplot(dat, aes(x = x, fill = size)) +
+  geom_histogram(binwidth=.3, colour = "black", aes(y = ..density..)) 
+g <- g + stat_function(fun = dnorm, size = 2)
+print(g)
+
+```
+

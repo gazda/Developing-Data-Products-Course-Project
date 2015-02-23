@@ -1,37 +1,42 @@
 Exponential distribution simulation
 ========================================================
-author: 
-date: 
+author: Igor Kaplanovic
+date: 2015-02-22
 
-First Slide
+Reasons
 ========================================================
 
-For more details on authoring R presentations click the
-**Help** button on the toolbar.
+Exponential distribution simulation is a small educational
+Shiny application.
 
-- Bullet 1
-- Bullet 2
-- Bullet 3
+It is intended as a small tool for showing how exponentaial
+distribution works in courses such as Statistical inference.
 
-Slide With Code
+Methodology of simulation
 ========================================================
+
+All data used in simulator are generated according to the parameters selected by the student.
+There are 3 parameters:
+- lambda,
+- number of simulations to perform and
+- number of observations per each simulation.
+
+Matrix of all values is calculated only once and then used for displaying two plots.
+
+
 
 
 ```r
-summary(cars)
+mat <- matrix(rexp(nosim * noobs, lambda), nosim)
 ```
 
-```
-     speed           dist    
- Min.   : 4.0   Min.   :  2  
- 1st Qu.:12.0   1st Qu.: 26  
- Median :15.0   Median : 36  
- Mean   :15.4   Mean   : 43  
- 3rd Qu.:19.0   3rd Qu.: 56  
- Max.   :25.0   Max.   :120  
-```
-
-Slide With Plot
+Plot of distribution of generated values with expected mean value
 ========================================================
 
-![plot of chunk unnamed-chunk-2](Exponential distribution simulation-figure/unnamed-chunk-2.png) 
+![plot of chunk unnamed-chunk-3](Exponential distribution simulation-figure/unnamed-chunk-3.png) 
+
+Plot showing that the distribution is approximately normal.
+========================================================
+
+![plot of chunk unnamed-chunk-4](Exponential distribution simulation-figure/unnamed-chunk-4.png) 
+

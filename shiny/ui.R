@@ -6,9 +6,9 @@ shinyUI(fluidPage(
   titlePanel("Exponential distribution simulation"),
   p("This is a simple simulator for displaying inner workings of exponential distribution."),
   div("All data used in simulator are generated according to the parameters selected on the left side."),
-  div("These parameters are lambda, number of simulations to performe and number of observations per each simulation."),
+  div("These parameters are lambda, number of simulations to perform and number of observations per each simulation."),
   br(),
-  div("First plot displayed is of the all generated values with expected mean value."),
+  div("First plot displayed is of distribution of generated values with expected mean value."),
   div("Second plot displays that the means of simulation takes a shape of normalized distribution around theoretical mean (1 / lambda)."),
   br(),
   
